@@ -19,10 +19,10 @@ def studentlogin(request):
                 student_obj=student.objects.filter(userid=username)
                 return render(request,'alogin/getstudent.html',{'student':student_obj})
                 # print(student_obj)
-                if student_obj != None:
-                        return redirect('getstudenturl')
-                else:
-                        return redirect('loginurl')
+                # if student_obj != None:
+                #         return redirect('getstudenturl')
+                # else:
+                #         return redirect('loginurl')
 
 def teacherlogin(request):
         if request.method == "GET":
