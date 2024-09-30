@@ -9,6 +9,7 @@ class student(models.Model):
     password=models.CharField(max_length=10)
     mail=models.CharField(max_length=20)
     mobile_no=models.CharField(max_length=20)
+    address=models.CharField(max_length=30,default="Unknown")
     def __str__ (self):
         return self.stname
 
@@ -20,6 +21,7 @@ class teacher(models.Model):
     password=models.CharField(max_length=10)
     mobile_no=models.CharField(max_length=20)
     mail=models.CharField(max_length=20)
+    address=models.CharField(max_length=30,default="Unknown")
     def __str__ (self):
         return self.tname
     

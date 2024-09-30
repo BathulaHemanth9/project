@@ -1,8 +1,8 @@
 from django.shortcuts import render,HttpResponse,redirect
 from django.http import JsonResponse
 from rest_framework.response import Response
-from alogin.models import student,teacher
-from.serializers import StudentSerializer,TeacherSerializer
+from alogin.models import student,teacher,Admin
+from.serializers import StudentSerializer,TeacherSerializer,AdminSerializer
 from rest_framework.decorators import api_view
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_200_OK
 from django.contrib.auth.hashers import check_password
@@ -114,28 +114,23 @@ def teacherlogin(request):
                 username = request.POST['uname']
                 password = request.POST['pwd']
 
-                teacher_obj=teacher.objects.get(userid=username,password=password)
+                teacher_obj=teacher.objects.filter(userid=username,password=password)
                 if teacher_obj != None:
                         return redirect('teacherurl')
                 else:
                         return redirect('loginurl')
 
+# def adminlogin(request):
+#         if request.method == "GET":
+#                 return render(request,'alogin/login.html')
+#         if request.method == "POST":
+#                 username = request.POST['uname']
+#                 password = request.POST['pwd']
 
-# @login_required  # Ensure only logged-in users can access
-# def studentdash(request):
-#     user = request.user
+#                 admin_obj=Admin.objects.filter(userid=username,password=password)
+#                 if admin_obj != None:
+#                         return redirect('adminurl')
+#                 else:
+#                         return redirect('loginurl')
 
-#     # Ensure the logged-in user is a student
-#     if user.role == 'student':
-#         # Pass the user's details to the template
-#         context = {
-#             'stid': user.stid,
-#             'stname': user.stname,
-#             'mail': user.mail,
-#             'mobile_no': user.mobile,
-#         }
-#         return render(request, 'studentdash.html', context)
-#     else:
-#         # If not a student, restrict access and redirect or show error
-#         messages.error(request, 'Access restricted to students only.')
-#         return redirect('loginurl')
+

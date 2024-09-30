@@ -63,8 +63,9 @@ def poststudent(request):
             password = request.POST['stpassword']
             email = request.POST['stemail']
             mobile = request.POST['stnum']
+            address = request.POST['saddress']
 
-            std = student(stid=stid,stname=stname,userid=userid,password=password,mail=email,mobile_no=mobile)
+            std = student(stid=stid,stname=stname,userid=userid,password=password,mail=email,mobile_no=mobile,address=address)
             std.save()
             return HttpResponse('welcome')
 
@@ -80,8 +81,10 @@ def postteacher(request):
             email = request.POST['teemail']
             mobile = request.POST['tenum']
             salary = request.POST['tesal']
+            address = request.POST['taddress']
 
-            tea = teacher(tid=tid,tname=tname,salary=salary,userid=userid,password=password,mobile_no=mobile,mail=email)
+
+            tea = teacher(tid=tid,tname=tname,salary=salary,userid=userid,password=password,mobile_no=mobile,mail=email,address=address)
             tea.save()
             return HttpResponse('Teacher details successfully register')
       
@@ -98,8 +101,9 @@ def studentupdate(request,stid):
               spass=(request.POST['spass'])
               smail=(request.POST['smail'])
               smobile=(request.POST['smobile'])
+              saddress=(request.POST['saddress'])
               print(request.FILES)
-              obj=student(stid=sid,stname=sname,userid=suser,password=spass,mail=smail,mobile_no=smobile)
+              obj=student(stid=sid,stname=sname,userid=suser,password=spass,mail=smail,mobile_no=smobile,address=saddress)
               obj.save()
               return HttpResponse("update successfully")
        
@@ -116,8 +120,9 @@ def teacherupdate(request,tid):
               tpass=(request.POST['tpass'])
               tmobile=(request.POST['tmobile'])
               tmail=(request.POST['tmail'])
+              taddress=(request.POST['taddress'])
               print(request.FILES)
-              obj=teacher(tid=tid,tname=tname,salary=salary,userid=tuser,password=tpass,mobile_no=tmobile,mail=tmail)
+              obj=teacher(tid=tid,tname=tname,salary=salary,userid=tuser,password=tpass,mobile_no=tmobile,mail=tmail,address=taddress)
               obj.save()
               return HttpResponse("update successfully")
 
@@ -133,15 +138,3 @@ def getteacher(request):
         print(tobjects)
         return render(request,'alogin/getteacher.html',{'teacher':tobjects})
 
-# def studentlogin(request):
-#         if request.method == "GET":
-#                 return render(request,'alogin/login.html')
-#         if request.method == "POST":
-#                 username = request.POST['uname']
-#                 password = request.POST['pwd']
-
-#                 student_obj=student.objects.filter(userid=username,password=password)
-#                 if student_obj != None:
-#                         return redirect('studenturl')
-#                 else:
-#                         return redirect('loginurl')

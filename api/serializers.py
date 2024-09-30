@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from alogin.models import student,teacher
+from alogin.models import student,teacher,Admin
 from rest_framework.exceptions import ValidationError
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -16,4 +16,9 @@ class StudentSerializer(serializers.ModelSerializer):
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = teacher
+        fields = '__all__'
+
+class AdminSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Admin
         fields = '__all__'

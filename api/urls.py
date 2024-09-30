@@ -8,6 +8,8 @@ urlpatterns = [
     path('modifyteacher/<int:pk>/',views.modifyteacherapi),
     path('studentlogin/',views.studentlogin),
     path('teacherlogin/',views.teacherlogin),
+    # path('adminlogin/',views.adminlogin),
+    # path('getadmin/',views.getadminapi,name="adminurl")
     # path('studentdashboard/',views.studentdash,name="stddashurl")
 
 ]
