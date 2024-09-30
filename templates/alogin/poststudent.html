@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <p>Student Form</p>
+        <form action="" method="post">
+            {% csrf_token %}
+            <label for="">
+                stid:
+                <input type="number" name="stdid">
+            </label><br><br>
+            <label for="">
+                stname:
+                <input type="text" name="stdname">
+            </label><br><br>
+            <label for="">
+                username:
+                <input type="text" name="stuname">
+            </label><br><br>
+            <label for="">
+                password:
+                <input type="password" name="stpassword">
+            </label><br><br>
+            <label for="">
+                email:
+                <input type="email" name="stemail">
+            </label><br><br>
+            <label for="">
+                mobile:
+                <input type="text" name="stnum">
+            </label><br><br>
+            <button type="submit">Register</button>
+        </form>
+    </body>
+</html>

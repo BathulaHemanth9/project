@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="">
+                teacher id:
+                <input type="number" value="{{teupdate.tid}}" name="tid">
+            </label><br><br>
+            <label for="">
+                teacher name:
+                <input type="text"  value="{{teupdate.tname}}" name="tname">
+            </label><br><br>
+            <label for="">
+                salary:
+                <input type="number"  value="{{teupdate.salary}}" name="tsal">
+            </label><br><br>
+            <label for="">
+                userid:
+                <input type="text"  value="{{teupdate.userid}}" name="tuser">
+            </label><br><br>
+            <label for="">
+                password:
+                <input type="text" value="{{teupdate.password}}" name="tpass">
+            </label><br><br>
+            <label for="">
+                mobile num:
+                <input type="text" value="{{teupdate.mobile_no}}" name="tmobile">
+            </label><br><br>
+            <label for="">
+                Email:
+                <input type="email" value="{{teupdate.mail}}" name="tmail">
+            </label><br><br>
+            <button type="submit">Update</button>
+        </form> 
+    </body>
+</html>

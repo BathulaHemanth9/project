@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+    </head>
+    <body>
+        <form action="" method="post">
+            {% csrf_token %}
+            <label for="">
+                User Name:
+                <input type="text" name="uname">
+            </label><br><br>
+            <label for="">
+                Password:
+                <input type="text" name="pwd">
+            </label><br><br>
+            <button type="submit">Login</button>
+        </form>
+    </body>
+</html>

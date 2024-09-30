@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <p>Teacher Form</p>
+        <form action="" method="post">
+            {% csrf_token %}
+            <label for="">
+                teid:
+                <input type="number" name="teid">
+            </label><br><br>
+            <label for="">
+                tename:
+                <input type="text" name="tename">
+            </label><br><br>
+            <label for=""></label>
+                Salary:
+                <input type="text" name="tesal">
+            </label><br><br>
+            <label for="">
+                userid:
+                <input type="text" name="teuname">
+            </label><br><br>
+            <label for="">
+                password:
+                <input type="password" name="tepassword">
+            </label><br><br>
+            <label for="">
+                mobile:
+                <input type="text" name="tenum">
+            </label><br><br>
+            <label for="">
+                email:
+                <input type="email" name="teemail">
+            </label><br><br>
+            <button type="submit">Register</button>
+        </form>
+    </body>
+</html>

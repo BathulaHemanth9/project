@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        {% for obj in teacher %}
+        <div>
+            <p>tid:{{obj.tid}}</p>
+            <p>tname:{{obj.tname}}</p>
+            <p>salary:{{obj.salary}}</p>
+            <p>userid:{{obj.userid}}</p>
+            <p>password:{{obj.password}}</p>
+            <p>mobile:{{obj.mobile_no}}</p>
+            <p>mail:{{obj.mail}}</p>
+            <p>********************</p>
+        </div>
+        {% endfor %}
+    </body>
+</html>
