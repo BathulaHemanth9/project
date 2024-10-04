@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Marks</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Marks Records</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Subject</th>
+                <th>Marks Obtained</th>
+                <th>Total Marks</th>
+                <th>Assessment Date</th>
+                <th>Teacher Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mark in marks_records %}
+            <tr>
+                <td>{{ mark.student.stname }}</td>
+                <td>{{ mark.subject.name }}</td>
+                <td>{{ mark.marks_obtained }}</td>
+                <td>{{ mark.total_marks }}</td>
+                <td>{{ mark.assessment_date }}</td>
+                <td>{{ mark.teacher.tname }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+</body>
+</html>

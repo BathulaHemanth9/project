@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Student Details</title>
+        <style>
+            table {
+                width: 80%;
+                border-collapse: collapse;
+                margin: 20px auto;
+            }
+            table, th, td {
+                border: 1px solid black;
+            }
+            th, td {
+                padding: 10px;
+                text-align: left;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+        </style>
+    </head>
+    <body>
+        <h2 style="text-align: center;">Student Details</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                    <th>User ID</th>
+                    <th>Password</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ obj.stid }}</td>
+                    <td>{{ obj.stname }}</td>
+                    <td>{{ obj.userid }}</td>
+                    <td>{{ obj.password }}</td>
+                    <td>{{ obj.mail }}</td>
+                    <td>{{ obj.mobile_no }}</td>
+                    <td>{{ obj.address }}</td>
+                </tr>
+
+            </tbody>
+        </table><br><br><br>
+        <a href="{% url 'viewattendance' obj.stid %}">View Attendance</a><br><br>
+        <a href="{% url 'viewmarks' obj.stid %}">View Marks</a><br><br><br>
+        <a href="{% url 'slogouturl' %}">Logout</a>
+    </body>
+</html>

@@ -1,21 +1,118 @@
 <!DOCTYPE html>
-<html>
-    <head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 300px;
+            margin: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        .card h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .card p {
+            margin: 5px 0;
+            color: #555;
+        }
+        .card a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            border-radius: 5px;
+        }
+        .card a:hover {
+            background-color: #0056b3;
+        }
+        .card-links {
+            margin-top: 15px;
+        }
+        .card-links a {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 8px 12px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .card-links a:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
 
-    </head>
-    <body>
-        {% for obj in teacher %}
-        <div>
-            <p>tid:{{obj.tid}}</p>
-            <p>tname:{{obj.tname}}</p>
-            <p>salary:{{obj.salary}}</p>
-            <p>userid:{{obj.userid}}</p>
-            <p>password:{{obj.password}}</p>
-            <p>mobile:{{obj.mobile_no}}</p>
-            <p>mail:{{obj.mail}}</p>
-            <p>Address:{{obj.address}}</p>
-            <p>********************</p>
+    <h1>Faculty List</h1>
+    <div class="container">
+        <div class="card">
+            <h2>{{ faculty.name }}</h2>
+            <p><strong>Faculty ID:</strong> {{ faculty.tid }}</p>
+            <p><strong>Faculty Name:</strong> {{ faculty.tname }}</p>
+            <!-- <p><strong>Department:</strong> {{ faculty.department }}</p> -->
+            <p><strong>Phone Number:</strong> {{ faculty.mobile_no }}</p>
+            <p><strong>Email:</strong> {{ faculty.mail }}</p>
+            <div class="card-links">
+                <a href="{% url 'pastattendence' %}">Post Attendance</a>
+                <a href="{% url 'add_marks' %}">Post Marks</a>
+            </div>
         </div>
-        {% endfor %}
-    </body>
+        <div>
+            <h2>Students</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Update</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.stid }}</td>
+                    <td>{{ student.stname }}</td>
+                    <td>{{ student.mail }}</td>
+                    <td>{{ student.mobile_no }}</td>
+                    <td><a href="{% url 'stdupdateurl' student.stid %}">Update Student</a></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No students found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+     <a href="{% url 'tlogouturl' %}">Logout</a>
+</body>
 </html>

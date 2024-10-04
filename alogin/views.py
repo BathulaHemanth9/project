@@ -1,10 +1,12 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib import messages
-from django.contrib.auth import authenticate as auth_authenticate,login as auth_login
+from django.contrib.auth import authenticate as auth_authenticate,login as auth_login,logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from.models import student,teacher,Admin
+from.models import student,teacher,Admin,Attendance,Marks
 from django.contrib.auth.forms import UserCreationForm
+from .forms import AttendanceForm,MarksForm
 
 
 # Create your views here.
@@ -16,13 +18,10 @@ def studentlogin(request):
                 username = request.POST['uname']
                 password = request.POST['pwd']
 
-                student_obj=student.objects.filter(userid=username)
-                return render(request,'alogin/getstudent.html',{'student':student_obj})
-                # print(student_obj)
-                # if student_obj != None:
-                #         return redirect('getstudenturl')
-                # else:
-                #         return redirect('loginurl')
+                student_obj=student.objects.get(userid=username,password=password)
+                student_id = student_obj.stid 
+                student_name = student_obj.stname
+                return redirect('getstudenturl',stid=student_id)
 
 def teacherlogin(request):
         if request.method == "GET":
@@ -30,13 +29,10 @@ def teacherlogin(request):
         if request.method == "POST":
                 username = request.POST['uname']
                 password = request.POST['pwd']
-
-                teacher_obj=teacher.objects.filter(userid=username)
-                return render(request,'alogin/getteacher.html',{'teacher':teacher_obj})
-                # if teacher_obj != None:
-                #         return redirect('getteacherurl')
-                # else:
-                #         return redirect('loginurl')
+                teacher_obj = teacher.objects.get(userid=username, password=password)
+                teacher_id = teacher_obj.tid  
+                teacher_name = teacher_obj.tname
+                return redirect('getteacherurl',tid=teacher_id,)
 
 def adminlogin(request):
         if request.method == "GET":
@@ -47,9 +43,11 @@ def adminlogin(request):
 
                 admin_obj=Admin.objects.get(userid=username,password=password)
                 if admin_obj != None:
-                        return HttpResponse("hello admin")
+                        students = student.objects.all()
+                        teachers = teacher.objects.all()
+                        return render(request,'alogin/admindash.html', {'students': students, 'teachers': teachers})
                 else:
-                        return redirect('loginurl')
+                        return redirect('aloginurl')
                 
 
 def poststudent(request):
@@ -126,15 +124,70 @@ def teacherupdate(request,tid):
               obj.save()
               return HttpResponse("update successfully")
 
-def getstudent(request):
+def getstudent(request,stid):
        if request.method =='GET':
-        stdobjects=student.objects.all()
+        stdobjects=student.objects.get(stid=stid)
         print(stdobjects)
-        return render(request,'alogin/getstudent.html',{'student':stdobjects})
+        return render(request,'alogin/getstudents.html',{'obj':stdobjects})
 
-def getteacher(request):
+def getteacher(request,tid):
        if request.method =='GET':
-        tobjects=teacher.objects.all()
-        print(tobjects)
-        return render(request,'alogin/getteacher.html',{'teacher':tobjects})
+        tobjects=teacher.objects.get(tid=tid)
+        students = student.objects.all()
+        return render(request,'alogin/getteacher.html',{'faculty':tobjects,'students': students})
 
+
+
+def viewattendance(request,stid):
+       if request.method == 'GET':
+        attendance_records = Attendance.objects.filter(student__stid=stid)
+        return render(request,'alogin/viewattendance.html',{'attendance_records': attendance_records})
+
+def viewmarks(request,stid):
+       if request.method == 'GET':
+        marks = Marks.objects.filter(student__stid=stid)
+        return render(request,'alogin/viewmarks.html',{'marks_records': marks})
+       
+
+def addatt(request):
+    if request.method == 'POST':
+        form = AttendanceForm(request.POST)
+        if form.is_valid():
+            student = form.cleaned_data['student']
+            date = form.cleaned_data['date']
+            if Attendance.objects.filter(student=student, date=date).exists():
+                messages.error(request, 'Attendance for this student on this date already exists.')
+            else:
+                form.save()
+                messages.success(request, 'Attendance recorded successfully.')
+                return redirect('pastattendence')  
+    else:
+        form = AttendanceForm()
+
+    return render(request, 'alogin/add_attendance.html', {'form': form})
+
+
+def add_marks(request):
+    if request.method == 'POST':
+        form = MarksForm(request.POST)
+        if form.is_valid():
+            student = form.cleaned_data['student']
+            subject = form.cleaned_data['subject']
+            assessment_date = form.cleaned_data['assessment_date']
+            if Marks.objects.filter(student=student, subject=subject, assessment_date=assessment_date).exists():
+                messages.error(request, 'Marks for this student in this subject on this date already exist.')
+            else:
+                form.save()
+                messages.success(request, 'Marks added successfully.')
+                return redirect('add_marks')  
+    else:
+        form = MarksForm()
+
+    return render(request, 'alogin/add_marks.html', {'form': form})
+
+def logoutteacher(request):
+    logout(request)
+    return redirect('tloginurl')
+def logoutstd(request):
+    logout(request)
+    return redirect('loginurl')

@@ -120,17 +120,17 @@ def teacherlogin(request):
                 else:
                         return redirect('loginurl')
 
-# def adminlogin(request):
-#         if request.method == "GET":
-#                 return render(request,'alogin/login.html')
-#         if request.method == "POST":
-#                 username = request.POST['uname']
-#                 password = request.POST['pwd']
+def adminlogin(request):
+        if request.method == "GET":
+                return render(request,'alogin/login.html')
+        if request.method == "POST":
+                username = request.POST['uname']
+                password = request.POST['pwd']
 
-#                 admin_obj=Admin.objects.filter(userid=username,password=password)
-#                 if admin_obj != None:
-#                         return redirect('adminurl')
-#                 else:
-#                         return redirect('loginurl')
+                admin_obj=Admin.objects.filter(userid=username,password=password)
+                if admin_obj != None:
+                        return HttpResponse("welcome")
+                else:
+                        return redirect('loginurl')
 
 
