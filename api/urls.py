@@ -9,6 +9,7 @@ urlpatterns = [
     path('studentlogin/',views.studentlogin),
     path('teacherlogin/',views.teacherlogin),
     path('adminlogin/',views.adminlogin),
+    path('addattd/', views.addatt, name='pastattendence'),
     # path('addattendance/',views.addattendance,name="attendance")
     # path('getadmin/',views.getadminapi,name="adminurl")
     # path('studentdashboard/',views.studentdash,name="stddashurl")

@@ -15,8 +15,6 @@ urlpatterns=[
     path('viewmarks/<int:stid>/',views.viewmarks,name="viewmarks"),
     path('addattd/', views.addatt, name='pastattendence'),
     path('addmarks/', views.add_marks, name='add_marks'),
-    path('logout/',views.logoutteacher,name="tlogouturl"),
-    path('slogout/',views.logoutstd,name="slogouturl"),
     
     
 ]

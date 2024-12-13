@@ -1,12 +1,13 @@
 from django.shortcuts import render,HttpResponse,redirect
 from django.http import JsonResponse
 from rest_framework.response import Response
-from alogin.models import student,teacher,Admin
+from alogin.models import student,teacher,Admin,Attendance
 from.serializers import StudentSerializer,TeacherSerializer,AdminSerializer
 from rest_framework.decorators import api_view
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_200_OK
 from django.contrib.auth.hashers import check_password
 from django.contrib import messages
+from .forms import AttendanceForm,MarksForm
 from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import authentication_classes,permission_classes
 
@@ -101,10 +102,12 @@ def studentlogin(request):
                 username = request.POST['uname']
                 password = request.POST['pwd']
 
-                student_obj=student.objects.filter(userid=username,password=password)
+                student_obj=student.objects.filter(userid=username,password=password).first()
                 if student_obj != None:
+                        request.session['student_id'] = student_obj.stid
                         return redirect('studenturl')
                 else:
+                        messages.error(request, 'Invalid username or password')
                         return redirect('loginurl')
 
 def teacherlogin(request):
@@ -134,3 +137,19 @@ def adminlogin(request):
                         return redirect('loginurl')
 
 
+def addatt(request):
+    if request.method == 'POST':
+        form = AttendanceForm(request.POST)
+        if form.is_valid():
+            student = form.cleaned_data['student']
+            date = form.cleaned_data['date']
+            if Attendance.objects.filter(student=student, date=date).exists():
+                messages.error(request, 'Attendance for this student on this date already exists.')
+            else:
+                form.save() 
+                messages.success(request, 'Attendance recorded successfully.')
+                return redirect('pastattendence')  
+    else:
+        form = AttendanceForm()
+
+    return render(request, 'alogin/add_attendance.html', {'form': form})

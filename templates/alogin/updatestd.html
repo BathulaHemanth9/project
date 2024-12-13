@@ -1,40 +1,118 @@
 <!DOCTYPE html>
-<html>
-    <head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Student</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-    </head>
-    <body>
+        .form-container {
+            max-width: 500px;
+            width: 100%;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="number"],
+        .form-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .form-container input:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .form-container .back-button {
+            margin-top: 10px;
+            background-color: #6c757d;
+        }
+
+        .form-container .back-button:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Update Student Information</h1>
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <label for="">
-                stid:
-                <input type="number" value="{{stupdate.stid}}" name="sid">
-            </label><br><br>
-            <label for="">
-                stname:
-                <input type="text"  value="{{stupdate.stname}}" name="sname">
-            </label><br><br>
-            <label for="">
-                userid:
-                <input type="text"  value="{{stupdate.userid}}" name="suser">
-            </label><br><br>
-            <label for="">
-                password:
-                <input type="text"  value="{{stupdate.password}}" name="spass">
-            </label><br><br>
-            <label for="">
-                email:
-                <input type="email" value="{{stupdate.mail}}" name="smail">
-            </label><br><br>
-            <label for=""></label>
-                mobile:
-                <input type="text" value="{{stupdate.mobile_no}}" name="smobile">
-            </label><br><br>
-            <label for=""></label>
-                Address:
-                <input type="text" value="{{stupdate.address}}" name="saddress">
-            </label><br><br>
+
+            <label for="stid">Student ID:</label>
+            <input type="number" id="stid" name="sid" value="{{stupdate.stid}}" required>
+
+            <label for="stname">Student Name:</label>
+            <input type="text" id="stname" name="sname" value="{{stupdate.stname}}" required>
+
+            <label for="userid">User ID:</label>
+            <input type="text" id="userid" name="suser" value="{{stupdate.userid}}" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="spass" value="{{stupdate.password}}" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="smail" value="{{stupdate.mail}}" required>
+
+            <label for="mobile">Mobile:</label>
+            <input type="text" id="mobile" name="smobile" value="{{stupdate.mobile_no}}" required>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="saddress" value="{{stupdate.address}}" required>
+
             <button type="submit">Update</button>
-        </form> 
-    </body>
+        </form>
+        <button class="back-button" onclick="history.back()">Go Back</button>
+    </div>
+</body>
 </html>

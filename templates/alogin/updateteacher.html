@@ -1,44 +1,121 @@
 <!DOCTYPE html>
-<html>
-    <head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Teacher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-    </head>
-    <body>
+        .form-container {
+            max-width: 500px;
+            width: 100%;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="number"],
+        .form-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .form-container input:focus {
+            border-color: #28a745;
+            outline: none;
+            box-shadow: 0 0 5px rgba(40, 167, 69, 0.2);
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container button:hover {
+            background-color: #218838;
+        }
+
+        .form-container .back-button {
+            margin-top: 10px;
+            background-color: #dc3545;
+        }
+
+        .form-container .back-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Update Teacher Information</h1>
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <label for="">
-                teacher id:
-                <input type="number" value="{{teupdate.tid}}" name="tid">
-            </label><br><br>
-            <label for="">
-                teacher name:
-                <input type="text"  value="{{teupdate.tname}}" name="tname">
-            </label><br><br>
-            <label for="">
-                salary:
-                <input type="number"  value="{{teupdate.salary}}" name="tsal">
-            </label><br><br>
-            <label for="">
-                userid:
-                <input type="text"  value="{{teupdate.userid}}" name="tuser">
-            </label><br><br>
-            <label for="">
-                password:
-                <input type="text" value="{{teupdate.password}}" name="tpass">
-            </label><br><br>
-            <label for="">
-                mobile num:
-                <input type="text" value="{{teupdate.mobile_no}}" name="tmobile">
-            </label><br><br>
-            <label for="">
-                Email:
-                <input type="email" value="{{teupdate.mail}}" name="tmail">
-            </label><br><br>
-            <label for=""></label>
-                Address:
-                <input type="text" value="{{teupdate.address}}" name="taddress">
-            </label><br><br>
+
+            <label for="tid">Teacher ID:</label>
+            <input type="number" id="tid" name="tid" value="{{teupdate.tid}}" required>
+
+            <label for="tname">Teacher Name:</label>
+            <input type="text" id="tname" name="tname" value="{{teupdate.tname}}" required>
+
+            <label for="salary">Salary:</label>
+            <input type="number" id="salary" name="tsal" value="{{teupdate.salary}}" required>
+
+            <label for="userid">User ID:</label>
+            <input type="text" id="userid" name="tuser" value="{{teupdate.userid}}" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="tpass" value="{{teupdate.password}}" required>
+
+            <label for="mobile">Mobile Number:</label>
+            <input type="text" id="mobile" name="tmobile" value="{{teupdate.mobile_no}}" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="tmail" value="{{teupdate.mail}}" required>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="taddress" value="{{teupdate.address}}" required>
+
             <button type="submit">Update</button>
-        </form> 
-    </body>
+        </form>
+        <button class="back-button" onclick="history.back()">Go Back</button>
+    </div>
+</body>
 </html>

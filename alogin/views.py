@@ -185,9 +185,5 @@ def add_marks(request):
 
     return render(request, 'alogin/add_marks.html', {'form': form})
 
-def logoutteacher(request):
-    logout(request)
-    return redirect('tloginurl')
-def logoutstd(request):
-    logout(request)
-    return redirect('loginurl')
+
+
