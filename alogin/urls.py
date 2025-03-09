@@ -15,6 +15,13 @@ urlpatterns=[
     path('viewmarks/<int:stid>/',views.viewmarks,name="viewmarks"),
     path('addattd/', views.addatt, name='pastattendence'),
     path('addmarks/', views.add_marks, name='add_marks'),
-    
-    
+    path('delete_student/<int:stid>/', views.deletestudent, name='delete_student'),
+    path('delete_teacher/<int:tid>/', views.deleteteacher, name='delete_teacher'),
+    path('admin_dashboard/', views.admin_dashboard, name='admin_dashboard'),
+    path('login/',views.login_view,name="login_viewurl"),
+    path("logout/", views.logout_view, name="logout"),
+
+
+
+   
 ]

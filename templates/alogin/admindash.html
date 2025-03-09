@@ -1,18 +1,53 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Admin Dashboard</title>
-    </head>
-    <body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        .alert {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .alert-success { background-color: #d4edda; color: #155724; }
+        .alert-error { background-color: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
         <h1>Welcome to Admin Dashboard</h1>
 
         <!-- Post Student and Teacher links -->
-        <a href="{% url 'poststdurl' %}">Post Student</a><br><br>
-        <a href="{% url 'postteacher' %}">Post Teacher</a><br><br>
+        <a href="{% url 'poststdurl' %}">Post Student</a> |
+        <a href="{% url 'postteacher' %}">Post Teacher</a>
 
         <!-- Students Section -->
         <h2>Students</h2>
-        <table border="1">
+        <table>
             <thead>
                 <tr>
                     <th>Student ID</th>
@@ -20,6 +55,7 @@
                     <th>Email</th>
                     <th>Mobile</th>
                     <th>Update</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,11 +65,12 @@
                     <td>{{ student.stname }}</td>
                     <td>{{ student.mail }}</td>
                     <td>{{ student.mobile_no }}</td>
-                    <td><a href="{% url 'stdupdateurl' student.stid %}">Update Student</a></td>
+                    <td><a href="{% url 'stdupdateurl' student.stid %}">Update</a></td>
+                    <td><a href="{% url 'delete_student' student.stid %}">Delete</a></td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="5">No students found.</td>
+                    <td colspan="6">No students found.</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -41,7 +78,7 @@
 
         <!-- Teachers Section -->
         <h2>Teachers</h2>
-        <table border="1">
+        <table>
             <thead>
                 <tr>
                     <th>Teacher ID</th>
@@ -49,6 +86,7 @@
                     <th>Email</th>
                     <th>Mobile</th>
                     <th>Update</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -58,15 +96,24 @@
                     <td>{{ teacher.tname }}</td>
                     <td>{{ teacher.mail }}</td>
                     <td>{{ teacher.mobile_no }}</td>
-                    <td><a href="{% url 'teacherupdateurl' teacher.tid %}">Update Teacher</a></td>
+                    <td><a href="{% url 'teacherupdateurl' teacher.tid %}">Update</a></td>
+                    <td><a href="{% url 'delete_teacher' teacher.tid %}">Delete</a></td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="5">No teachers found.</td>
+                    <td colspan="6">No teachers found.</td>
                 </tr>
                 {% endfor %}
             </tbody>
-        </table><br><br>
-        <a href="{% url 'aloginurl'%}">Logout</a>
-    </body>
+        </table>
+
+        <a href="{% url 'login_viewurl' %}">Logout</a>
+    </div>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+</body>
 </html>

@@ -3,11 +3,11 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth import authenticate as auth_authenticate,login as auth_login,logout
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from.models import student,teacher,Admin,Attendance,Marks
 from django.contrib.auth.forms import UserCreationForm
 from .forms import AttendanceForm,MarksForm
-
 
 # Create your views here.
 
@@ -187,3 +187,57 @@ def add_marks(request):
 
 
 
+def deletestudent(request, stid):
+    student_obj = get_object_or_404(student, stid=stid)  # Automatically handles 404
+    student_obj.delete()
+    messages.success(request, 'Student deleted successfully!')  # Success message
+    return redirect('admin_dashboard')
+
+def deleteteacher(request, tid):
+    teacher_obj = get_object_or_404(teacher, tid=tid)  # Automatically handles 404
+    teacher_obj.delete()
+    messages.success(request, 'Student deleted successfully!')  # Success message
+    return redirect('admin_dashboard')
+
+def admin_dashboard(request):
+    students = student.objects.all()
+    teachers = teacher.objects.all() 
+    return render(request, 'alogin/admindash.html', {'students': students, 'teachers': teachers})
+
+
+def login_view(request):
+    if request.method == "POST":
+        role = request.POST.get("role")
+        username = request.POST.get("uname")
+        password = request.POST.get("pwd")
+
+        # Authentication based on selected role
+        if role == "admin":
+            admin_obj = Admin.objects.filter(userid=username, password=password).first()
+            if admin_obj:
+                request.session["admin_id"] = admin_obj.id  
+                messages.success(request, "Admin Login Successful!")
+                return redirect("admin_dashboard")
+            messages.error(request, "Invalid Admin credentials.")
+
+        elif role == "student":
+            student_obj = student.objects.filter(userid=username, password=password).first()
+            if student_obj:
+                request.session["student_id"] = student_obj.id
+                messages.success(request, "Student Login Successful!")
+                return redirect("student_dashboard")
+            messages.error(request, "Invalid Student credentials.")
+
+        elif role == "teacher":
+            teacher_obj = teacher.objects.filter(userid=username, password=password).first()
+            if teacher_obj:
+                request.session["teacher_id"] = teacher_obj.id
+                messages.success(request, "Teacher Login Successful!")
+                return redirect("teacher_dashboard")
+            messages.error(request, "Invalid Teacher credentials.")
+
+    return render(request, "alogin/home.html")
+
+def logout_view(request):
+    logout(request)  # Clear session and logout user
+    return redirect("alogin/home.html")  # Redirect to home login page
